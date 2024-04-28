@@ -25,8 +25,21 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
+    const infoCollection = client.db('infoDB').collection('info')
+
+    app.post('/spot-info', async(req, res) => {
+        const info = req.body;
+        console.log(info)
+        const result = await infoCollection.insertOne(info)
+        res.send(result)
+    })
+    app.get('/spot-info', async(req, res) => {
+        const cursor = infoCollection.find();
+        const result = await cursor.toArray();
+        res.send(result)
+    })
 
 
 
@@ -35,7 +48,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
