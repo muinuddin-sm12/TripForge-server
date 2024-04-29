@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 require('dotenv').config();
 const port = process.env.PORT || 5000
@@ -29,6 +29,9 @@ async function run() {
 
     const infoCollection = client.db('infoDB').collection('info')
 
+
+
+
     app.post('/spot-info', async(req, res) => {
         const info = req.body;
         console.log(info)
@@ -40,7 +43,17 @@ async function run() {
         const result = await cursor.toArray();
         res.send(result)
     })
-
+    app.delete('/spot-info/:id', async(req, res) => {
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)}
+        const result = await infoCollection.deleteOne(query)
+        res.send(result)
+    })
+    app.get('/spot-info/:id', async (req, res) => {
+      const id = req.params.id;
+      const result = await infoCollection.findOne({_id: new ObjectId(id)})
+      res.send(result)
+    })
 
 
     // Send a ping to confirm a successful connection
