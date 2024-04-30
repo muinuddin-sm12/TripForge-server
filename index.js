@@ -30,6 +30,7 @@ async function run() {
     // await client.connect();
 
     const infoCollection = client.db('infoDB').collection('info')
+    const countryCollection = client.db('countryDB').collection('country')
 
 
     app.post('/spot-info', async(req, res) => {
@@ -80,6 +81,13 @@ async function run() {
     });
 
 
+
+    app.get('/countries', async(req, res) => {
+      const countries = await countryCollection.find().toArray();
+      // console.log(countries)
+      res.send(countries)
+  })
+    
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
