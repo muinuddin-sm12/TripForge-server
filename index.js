@@ -6,7 +6,9 @@ require('dotenv').config();
 const port = process.env.PORT || 5000
 
 // middleware
-app.use(cors())
+app.use(cors({
+  origin: ["https://b9a10-server-side-muinuddin-sm12.vercel.app/", "http://localhost:5000/"]
+}))
 app.use(express.json())
 
 
