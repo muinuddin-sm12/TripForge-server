@@ -6,10 +6,10 @@ require('dotenv').config();
 const port = process.env.PORT || 5000
 
 // middleware
-app.use(cors({
-  origin: ["https://b9a10-server-side-muinuddin-sm12.vercel.app/", "http://localhost:5000/"]
-}))
+app.use(cors())
 app.use(express.json())
+
+
 
 
 
@@ -30,8 +30,6 @@ async function run() {
     // await client.connect();
 
     const infoCollection = client.db('infoDB').collection('info')
-
-
 
 
     app.post('/spot-info', async(req, res) => {
@@ -56,6 +54,30 @@ async function run() {
       const result = await infoCollection.findOne({_id: new ObjectId(id)})
       res.send(result)
     })
+
+    app.put('/spot-info/:id', async(req, res) => {
+      const id = req.params.id;
+      const data = req.body;
+      const filter = {_id: new ObjectId(id)}
+      const options = {upsert: true}
+      const updateData = {
+         $set : {
+          img_url : data.img_url,
+        spotName : data.spotName,
+        countryName : data.countryName,
+        location : data.location,
+        description : data.description,
+        cost : data.cost,
+        season : data.season,
+        travelTime : data.travelTime,
+        totalVisitors : data.totalVisitors,
+        email : data.email,
+        userName : data.userName
+      }
+    }
+    const result = await infoCollection.updateOne(filter, updateData, options)
+    res.send(result)
+    });
 
 
     // Send a ping to confirm a successful connection
