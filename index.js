@@ -11,7 +11,7 @@ const corsOptions = {
     "http://localhost:5173",
     "http://localhost:5174",
     "https://tripforge-b9a10.web.app",
-    "https://trip-forge-b9a10.netlify.app"
+    "https://b9-a10-client-side-muinuddin-sm12.vercel.app/"
   ],
   credentials: true,
   optionSuccessStatus: 200,
