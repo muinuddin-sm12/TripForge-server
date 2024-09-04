@@ -29,8 +29,8 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
 
-    const infoCollection = client.db('infoDB').collection('info')
-    const countryCollection = client.db('countryDB').collection('country')
+    const infoCollection = client.db('tripforge').collection('info')
+    const countryCollection = client.db('tripforge').collection('country')
 
 
     app.post('/spot-info', async(req, res) => {
