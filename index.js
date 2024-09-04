@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000
 const corsOptions = {
   origin: [
     "http://localhost:5173",
+    "http://localhost:5174",
     "https://tripforge-b9a10.web.app",
     "https://trip-forge-b9a10.netlify.app"
   ],
